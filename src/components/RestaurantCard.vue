@@ -3,7 +3,7 @@
     <div class="card mb-4">
       <img
         class="card-img-top"
-        :src="restaurant.image"
+        :src="restaurant.image | emptyImage"
         alt="Card image cap"
         width="286px"
         height="180px"
@@ -60,6 +60,8 @@
 </template>
 
 <script>
+import { emptyImageFilter } from '../utils/mixins'
+
 export default {
   props: {
     initRestaurant: {
@@ -72,6 +74,7 @@ export default {
       restaurant: this.initRestaurant
     }
   },
+  mixins: [emptyImageFilter],
   methods: {
     addFavorite () {
       this.restaurant = {

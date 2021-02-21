@@ -9,19 +9,22 @@
       :key="favoritedRestaurant.id"
       :to="{name: 'restaurant', params: {id: favoritedRestaurant.Favorite.RestaurantId}}"
       >
-        <img :src="favoritedRestaurant.image" width="60" height="60" class="mr-1">
+        <img :src="favoritedRestaurant.image | emptyImage" width="60" height="60" class="mr-1">
       </router-link>
     </div>
   </div>
 </template>
 
 <script>
+import { emptyImageFilter } from '../utils/mixins'
+
 export default {
   props: {
     favoritedRestaurants: {
       type: Array,
       required: true
     }
-  }
+  },
+  mixins: [emptyImageFilter]
 }
 </script>
