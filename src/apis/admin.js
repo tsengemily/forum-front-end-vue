@@ -10,6 +10,13 @@ export default {
         },
       })
     },
+    create({ name }) {
+      return apiHelper.post(
+        '/admin/categories',
+        { name },
+        { headers: { Authorization: `Bearer ${getToken()}` } }
+      )
+    },
   },
   restaurants: {
     create({ formData }) {
