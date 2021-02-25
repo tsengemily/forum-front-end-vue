@@ -92,7 +92,7 @@
             <button
               type="button"
               class="btn btn-link mr-2"
-              @click.stop.prevent="deleteCategory(category.id)"
+              @click.stop.prevent="deleteCategory(category.id, category.name)"
             >
               Delete
             </button>
@@ -134,7 +134,6 @@ export default {
           isEditing: false,
           nameCached: ''
         }))
-
       } catch (error) {
         console.log('error', error)
         Toast.fire({
@@ -170,8 +169,27 @@ export default {
         })
       } 
     },
-    deleteCategory (categoryId) {
-      this.categories = this.categories.filter(category => category.id !== categoryId)
+    async deleteCategory (categoryId, categoryName) {
+      try {
+        const { data } = await adminAPI.categories.delete({ categoryId })
+
+        if (data.status !== 'success') {
+          throw new Error(data.message)
+        }
+
+        Toast.fire({
+          icon: 'success',
+          title: `已將${categoryName}刪除`
+        })
+
+        this.categories = this.categories.filter(category => category.id !== categoryId)
+      }  catch (error) {
+        console.log('error', error)
+        Toast.fire({
+          icon: 'error',
+          title: '刪除失敗，請稍後再試'
+        })
+      } 
     },
     toggleIsEditing (categorId) {
       this.categories = this.categories.map(category => {
