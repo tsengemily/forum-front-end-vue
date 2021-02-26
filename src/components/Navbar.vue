@@ -54,44 +54,12 @@
 </template>
 
 <script>
-//模擬api回傳的資料
-const dummyUser = {
-  currentUser: {
-    id: 1,
-    name: '管理者',
-    email: 'root@example.com',
-    image: 'https://i.pravatar.cc/300',
-    isAdmin: true
-  },
-  isAuthenticated: true
-}
+import { mapState } from 'vuex'
 
 
 export default {
-  //在使用者未登入的情況下，Navbar 預設的空資料
-   data () {
-    return {
-      currentUser: {
-        id: -1,
-        name: '',
-        email: '',
-        image: '',
-        isAdmin: false
-      },
-      isAuthenticated: false
-    }
-  },
-  created () {
-    this.fetchUser()
-  },
-  methods: {
-    fetchUser () {
-      this.currentUser = {
-        ...this.currentUser,
-        ...dummyUser.currentUser
-      }
-      this.isAuthenticated = dummyUser.isAuthenticated
-    }
-  }
+ computed: {
+   ...mapState(['currentUser', 'isAuthenticated'])
+ }
 }
 </script>

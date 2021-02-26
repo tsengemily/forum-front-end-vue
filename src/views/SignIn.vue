@@ -88,7 +88,12 @@ export default {
         if (data.status !== 'success') {
           throw new Error(data.message)
         }
+        //將token存放在localStorage
         localStorage.setItem('token', data.token)
+
+        //將資料傳到Vuex中
+        this.$store.commit('setCurrentUser', data.user)
+
         this.$router.push('/restaurants')
       } catch (error) {
         this.password = ""
