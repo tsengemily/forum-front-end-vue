@@ -2,7 +2,7 @@
   <div class="container py-5">
     <UserProfileCard 
     :user="user"
-    :initial-isFollowed="isFollowed"
+    :initialisFollowed="isFollowed"
     :is-current-user="currentUser.id === user.id"
     />
     <div class="row">
@@ -86,6 +86,7 @@ export default {
         }
 
         console.log({data})
+        console.log(this.currentUser)
 
         const {profile, isFollowed} = data
         const {id, image, name, email, Comments, Followers, Followings, FavoritedRestaurants} = profile
@@ -114,7 +115,8 @@ export default {
         this.followers = Followers
         this.comments = Comments
         this.favoritedRestaurants = FavoritedRestaurants
-        this.isFollowed = isFollowed        
+        this.isFollowed = isFollowed     
+        console.log(this.isFollowed)   
       } catch (error) {
         console.error(error.message)
         Toast.fire({

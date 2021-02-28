@@ -68,7 +68,7 @@ export default {
       type: Object,
       required: true
     },
-    initialIsFollowed: {
+    initialisFollowed: {
       type: Boolean,
       required: true
     },
@@ -84,7 +84,7 @@ export default {
     }
   },
   watch: {
-    initialIsFollowed (isFollowed) {
+    initialisFollowed (isFollowed) {
       this.isFollowed = isFollowed
     }
   },
