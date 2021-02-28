@@ -122,16 +122,30 @@ export default {
         })
       }
     },
-    toggleUserRole (userId) {
-      this.users = this.users.map(user => {
-        if (user.id === userId) {
-          return{
-            ...user,
-            isAdmin: !user.isAdmin
-          }
+    async toggleUserRole (userId, isAdmin) {
+      try {
+        const { data } = await adminAPI.users.update({ userId, isAdmin: (!isAdmin).toString() })
+
+        if (data.status === 'error') {
+          throw new Error(data.message)
         }
+
+        this.users = this.users.map(user => {
+          if (user.id === userId) {
+            return{
+              ...user,
+              isAdmin: !user.isAdmin
+            }
+          }
         return user
       })
+      } catch (error) {
+        console.error(error.message)
+        Toast.fire({
+          icon: 'error',
+          title: '修改失敗，請稍後再試'
+        })
+      }
     }
   }
 }
